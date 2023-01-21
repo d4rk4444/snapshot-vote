@@ -2,7 +2,7 @@
 Скрипт для голосования на snapshot.org
 ## Установка
 ```
-git clone https://github.com/d4rk444/snapshot-vote.git
+git clone https://github.com/d4rk4444/snapshot-vote.git
 cd snapshot-vote
 npm i
 ```
