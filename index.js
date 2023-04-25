@@ -46,6 +46,7 @@ for (let i = 0; i < privateKey.length; i++) {
     console.log(`Wallet ${i+1}: ${address}`);
 
     let isReady;
+    let n = 0;
     while(!isReady) {
         try {
             await client.vote(ethWallet, address, {
@@ -53,18 +54,26 @@ for (let i = 0; i < privateKey.length; i++) {
                 proposal: proporsal[6],
                 type: 'single-choice',
                 choice: isNaN(Number(process.env.CHOICE)) ? generateRandomAmount(1, 2, 0) : Number(process.env.CHOICE),
-            })
-            .then(res => { console.log(chalk.green(`Vote ID ${i+1}: ${res.id}`)) })
-            .catch(err => { console.log(chalk.bgBlack(chalk.red(`Error VOTE: ${JSON.stringify(err)}`))), i = i - 1 });
+            }).then(res => { console.log(chalk.green(`Vote ID ${i+1}: ${res.id}`)) });
+            //.catch(err => { console.log(chalk.bgBlack(chalk.red(`Error VOTE: ${JSON.stringify(err)}`))), i = i - 1 });
             isReady = true;
         } catch (error) {
-            console.log(error);
+            n = n + 1;
+            console.log(chalk.bgBlack(chalk.red(`Error VOTE: ${JSON.stringify(error)}`)));
+            if (n == 2) {
+                n = 0;
+                console.log('Skip Wallet');
+                break;
+            }
+            await timeout(pauseTime);
         }
     }
 
-    /*await client.follow(ethWallet, address, {space: proporsal[4]} )
-        .then(res => { console.log(chalk.green(`Follow ID ${i+1}: ${res.id}`)) } )
-        .catch(err => { console.log(chalk.bgBlack(chalk.red(`Error FOLLOW: ${JSON.stringify(err)}`))) });*/
+    if (process.env.FOLLOW_PROJECT == 1) {
+        await client.follow(ethWallet, address, {space: proporsal[4]} )
+            .then(res => { console.log(chalk.green(`Follow ID ${i+1}: ${res.id}`)) } )
+            .catch(err => { console.log(chalk.bgBlack(chalk.red(`Error FOLLOW: ${JSON.stringify(err)}`))) });
+    }
     
     await timeout(pauseTime);
 }
