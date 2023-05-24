@@ -53,7 +53,7 @@ for (let i = 0; i < privateKey.length; i++) {
                 space: proporsal[4],
                 proposal: proporsal[6],
                 type: 'single-choice',
-                choice: isNaN(Number(process.env.CHOICE)) ? generateRandomAmount(1, 2, 0) : Number(process.env.CHOICE),
+                choice: isNaN(Number(process.env.CHOICE)) ? generateRandomAmount(1, process.env.NUMBER_OPTIONS, 0) : Number(process.env.CHOICE),
             }).then(res => { console.log(chalk.green(`Vote ID ${i+1}: ${res.id}`)) });
             //.catch(err => { console.log(chalk.bgBlack(chalk.red(`Error VOTE: ${JSON.stringify(err)}`))), i = i - 1 });
             isReady = true;

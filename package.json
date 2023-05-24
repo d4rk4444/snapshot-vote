@@ -1,6 +1,6 @@
 {
   "name": "snapshot-vote",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Скрипт для голосования на snapshot.org ## Установка ``` git clone https://github.com/d4rk4444/snapshot-vote.git cd snapshot-vote npm i ``` ## Настройка Все нужные настройки в файле .env     1. Сеть     2. Ссылка на голосование      3. Вариант для голосования, если нужен рандом то пишите 'random'",
   "type": "module",
   "main": "index.js",
